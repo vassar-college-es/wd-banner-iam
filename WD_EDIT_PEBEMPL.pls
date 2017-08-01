@@ -198,13 +198,11 @@ BEGIN
             end if;
             
             if p28 != 'No Update' then
-                  if substr(p31,1,1) = 'T' then
                       if p28 = 'null' then
                       pebempl_set := pebempl_set || 'pebempl_last_work_date = null, ';
                       else
                       pebempl_set := pebempl_set || 'pebempl_last_work_date = ''' || to_date(p28,'YYYY-MM-DD') || ''', ';
                       end if;
-                  end if;
             end if;
     
 
