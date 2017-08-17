@@ -151,6 +151,8 @@ BEGIN
             end;
             if work_phone = 'Y' then
                   sprtele_set := sprtele_set || 'sprtele_phone_number = ''' || validated_phone || ''', ';
+                  sprtele_set := sprtele_set || 'sprtele_atyp_code = ''SC'', ';
+                  sprtele_set := sprtele_set || 'sprtele_addr_seqno = 1, ';
                   sprtele_set := sprtele_set || 'sprtele_activity_date = sysdate';
                   sprtele_where := 'sprtele_tele_code = ''SC'' and sprtele_status_ind is null and sprtele_pidm = ' || p0;
    
@@ -165,9 +167,9 @@ BEGIN
             else
                 -- No SC Phone yet - let's add it
                 begin
-                    insert into sprtele (SPRTELE_PIDM, SPRTELE_SEQNO, SPRTELE_TELE_CODE, SPRTELE_ACTIVITY_DATE, SPRTELE_PHONE_AREA, SPRTELE_PHONE_NUMBER, SPRTELE_STATUS_IND,SPRTELE_DATA_ORIGIN, SPRTELE_USER_ID)
+                    insert into sprtele (SPRTELE_PIDM, SPRTELE_SEQNO, SPRTELE_TELE_CODE, SPRTELE_ACTIVITY_DATE, SPRTELE_PHONE_AREA, SPRTELE_PHONE_NUMBER, SPRTELE_STATUS_IND, SPRTELE_ATYP_CODE, SPRTELE_ADDR_SEQNO, SPRTELE_DATA_ORIGIN, SPRTELE_USER_ID)
                     values (p0, (select (nvl(max(z.sprtele_seqno),0)+1) from sprtele z where z.sprtele_pidm = p0),
-                    'SC', sysdate, '845', validated_phone, null, 'WORKDAY', 'WORKDAY');
+                    'SC', sysdate, '845', validated_phone, null, 'SC', 1, 'WORKDAY', 'WORKDAY');
                     exception when OTHERS then
                       return_code := 401;
                       return_status := SUBSTR(SQLERRM, 1, 100);
