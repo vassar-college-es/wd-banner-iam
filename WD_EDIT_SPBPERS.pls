@@ -112,6 +112,8 @@ AS
    spbpers_set varchar2(250) := '';
    spbpers_where varchar2(250) := '';
    
+   banner_gender varchar2(1) := '';
+   
 BEGIN
 
     if p0 = NULL then
@@ -138,7 +140,8 @@ BEGIN
         end if;
 
         if p2 != 'No Update' then
-          spbpers_set := spbpers_set || 'spbpers_sex = ''' || substr(p2,1,1) || ''', ';
+          if substr(p2,1,1) = 'U' then banner_gender := 'N'; else banner_gender := substr(p2,1,1); end if;
+          spbpers_set := spbpers_set || 'spbpers_sex = ''' || banner_gender || ''', ';
         end if;
 
         if p3 != 'No Update' then

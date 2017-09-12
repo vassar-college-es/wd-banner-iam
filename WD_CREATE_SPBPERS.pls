@@ -126,6 +126,8 @@ BEGIN
    begin
    select nvl(substr(p13,1,1),'') into banner_gend_code from dual;
    end ;
+   if banner_gend_code = 'U' then banner_gend_code := 'N'; end if;
+   
    -- Banner  Confid Status
    if p15 is not null then
          banner_confid_code := 'Y';
