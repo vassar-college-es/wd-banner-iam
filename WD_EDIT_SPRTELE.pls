@@ -183,7 +183,16 @@ BEGIN
         -- HOME
         if p18 != 'No Update' then
             if p17 != 'No Update' then home_phone_area := p17; end if;
-        
+            
+            begin
+               select instr(p18,'-') into locate_phone_dash from dual;
+            end;
+            if locate_phone_dash > 0 then
+                validated_phone := substr(p18,1,3)||substr(p18,5,4);
+            else
+                validated_phone := substr(p18,1,3)||substr(p18,4,4);
+            end if;
+            
             return_status := 'success';
         -- does this employee  have a HOME phone in Banner
             begin
@@ -196,7 +205,7 @@ BEGIN
             end;
             if home_phone = 'Y' then
                   sprtele_set := sprtele_set || 'sprtele_phone_area = ''' || home_phone_area || ''', ';
-                  sprtele_set := sprtele_set || 'sprtele_phone_number = ''' || p18 || ''', ';
+                  sprtele_set := sprtele_set || 'sprtele_phone_number = ''' || validated_phone || ''', ';
                   sprtele_set := sprtele_set || 'sprtele_activity_date = sysdate';
                   sprtele_where := 'sprtele_atyp_code = ''PR'' and sprtele_status_ind is null and sprtele_pidm = ' || p0;
    
@@ -213,7 +222,7 @@ BEGIN
                 begin
                     insert into sprtele (SPRTELE_PIDM, SPRTELE_SEQNO, SPRTELE_TELE_CODE, SPRTELE_ACTIVITY_DATE, SPRTELE_PHONE_AREA, SPRTELE_PHONE_NUMBER, SPRTELE_STATUS_IND,SPRTELE_ATYP_CODE, SPRTELE_DATA_ORIGIN, SPRTELE_USER_ID)
                     values (p0, (select (nvl(max(z.sprtele_seqno),0)+1) from sprtele z where z.sprtele_pidm = p0),
-                    'PR', sysdate, home_phone_area, p18, null, 'PR', 'WORKDAY', 'WORKDAY');
+                    'PR', sysdate, home_phone_area, validated_phone, null, 'PR', 'WORKDAY', 'WORKDAY');
                     exception when OTHERS then
                       return_code := 401;
                       return_status := SUBSTR(SQLERRM, 1, 100);
@@ -227,6 +236,8 @@ BEGIN
         
         -- HOME (device change)
         if p41 != 'No Update' and p18 = 'No Update' then
+        
+            
             return_status := 'success';
             
             if p41 = 'Mobile' then pr_phone_device := 'CP'; end if; 
@@ -253,6 +264,15 @@ BEGIN
         if p43 != 'No Update' then
             if p42 != 'No Update' then mobile_phone_area := p42; end if;
         
+            begin
+               select instr(p43,'-') into locate_phone_dash from dual;
+            end;
+            if locate_phone_dash > 0 then
+                validated_phone := substr(p43,1,3)||substr(p43,5,4);
+            else
+                validated_phone := substr(p43,1,3)||substr(p43,4,4);
+            end if;
+            
             return_status := 'success';
         -- does this employee  have a non-primary Mobile phone in Banner
             begin
@@ -265,7 +285,7 @@ BEGIN
             end;
             if non_primary_mobile_phone = 'Y' then
                   sprtele_set := sprtele_set || 'sprtele_phone_area = ''' || mobile_phone_area || ''', ';
-                  sprtele_set := sprtele_set || 'sprtele_phone_number = ''' || p43 || ''', ';
+                  sprtele_set := sprtele_set || 'sprtele_phone_number = ''' || validated_phone || ''', ';
                   sprtele_set := sprtele_set || 'sprtele_activity_date = sysdate';
                   sprtele_where := 'sprtele_tele_code = ''CP'' and sprtele_primary_ind is null and sprtele_status_ind is null and sprtele_pidm = ' || p0;
    
@@ -282,7 +302,7 @@ BEGIN
                 begin
                     insert into sprtele (SPRTELE_PIDM, SPRTELE_SEQNO, SPRTELE_TELE_CODE, SPRTELE_ACTIVITY_DATE, SPRTELE_PHONE_AREA, SPRTELE_PHONE_NUMBER, SPRTELE_STATUS_IND,SPRTELE_DATA_ORIGIN, SPRTELE_USER_ID)
                     values (p0, (select (nvl(max(z.sprtele_seqno),0)+1) from sprtele z where z.sprtele_pidm = p0),
-                    'CP', sysdate, mobile_phone_area, p43, null, 'WORKDAY', 'WORKDAY');
+                    'CP', sysdate, mobile_phone_area, validated_phone, null, 'WORKDAY', 'WORKDAY');
                     exception when OTHERS then
                       return_code := 401;
                       return_status := SUBSTR(SQLERRM, 1, 100);
