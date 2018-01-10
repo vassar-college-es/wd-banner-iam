@@ -233,7 +233,7 @@ BEGIN
      else /* No Existing PEBEMPL - let's add */
       
         if p36 = 'No Update' then banner_cost_center := null; else banner_cost_center := p36; end if;
-        if p44 = 'No Update' then wd_posn := null; else wd_posn := p44; end if;
+        if p44 = 'No Update' then wd_posn := null; else wd_posn := trim(p44); end if;
 
         daies.wd_create_pebempl(p7=>to_char(p0), p8=>sysdate, p23=>p33, p27=>p24, p28=>p25, p29=>p26, p38=>banner_cost_center, p44=>wd_posn, p46=>p46, REF_CUR_OUT=>new_pebempl_ref_cursor);
         ref_cur_out := new_pebempl_ref_cursor;
