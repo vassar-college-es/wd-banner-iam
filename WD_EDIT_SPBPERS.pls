@@ -128,7 +128,7 @@ BEGIN
         end if;
     
         if p6 != 'No Update' then
-          spbpers_set := spbpers_set || 'spbpers_birth_date = ''' || to_date(p6,'YYYY-MM-DD') || ''', ';
+          spbpers_set := spbpers_set || 'spbpers_birth_date = ''' || to_date(to_char(p6,'YYYY-MM-DD'),'YYYY-MM-DD') || ''', ';
         end if;
     
         if p4 != 'No Update' then
