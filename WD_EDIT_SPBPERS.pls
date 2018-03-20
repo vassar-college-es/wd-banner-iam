@@ -136,7 +136,7 @@ BEGIN
         end if;
     
         if p5 != 'No Update' then
-          spbpers_set := spbpers_set || 'spbpers_armed_serv_med_vet_ind = ''' || p5 || ''', ';
+          spbpers_set := spbpers_set || 'spbpers_armed_serv_med_vet_ind = ''Y'', ';
         end if;
 
         if p2 != 'No Update' then
