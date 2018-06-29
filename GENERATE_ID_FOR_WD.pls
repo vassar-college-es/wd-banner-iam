@@ -146,7 +146,7 @@ begin
     from spriden b, spbpers a
     where 
     b.spriden_pidm = a.spbpers_pidm and b.spriden_change_ind is null
-    and  p1 = b.spriden_first_name and p3 /*to_char(to_date(p3,'DD-MON-YYYY','DD-MON-YYYY'))*/ =  to_char(a.spbpers_birth_date,'YYYY-MM-DD')
+    and  p2 = b.spriden_last_name and p3 /*to_char(to_date(p3,'DD-MON-YYYY','DD-MON-YYYY'))*/ =  to_char(a.spbpers_birth_date,'YYYY-MM-DD')
     ;
     exception 
       when no_data_found then
