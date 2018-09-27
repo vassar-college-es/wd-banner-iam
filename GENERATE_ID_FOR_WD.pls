@@ -104,7 +104,7 @@ begin
     if search_result = false then
     /* check Banner ID match */
     begin
-    select distinct a.spbpers_ssn, a.spbpers_pidm, b.spriden_id, b.spriden_first_name, b.spriden_last_name, a.spbpers_birth_date, c.GOREMAL_EMAIL_ADDRESS INTO l_ssn, l_pidm, l_id, l_first_name, l_last_name, l_dob, l_vasr_email
+    select distinct a.spbpers_ssn, b.spriden_pidm, b.spriden_id, b.spriden_first_name, b.spriden_last_name, a.spbpers_birth_date, c.GOREMAL_EMAIL_ADDRESS INTO l_ssn, l_pidm, l_id, l_first_name, l_last_name, l_dob, l_vasr_email
     from spriden b, spbpers a, goremal c
     where 
     b.spriden_pidm = a.spbpers_pidm(+) and b.spriden_pidm = c.goremal_pidm(+) and c.goremal_emal_code(+) = 'VASR'
