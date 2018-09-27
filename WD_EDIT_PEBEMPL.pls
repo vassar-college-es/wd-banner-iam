@@ -138,7 +138,7 @@ BEGIN
        if existing_pidm > 0 then
     
             if p31 != 'No Update' then
-                  if substr(p31,1,1) in ('O','P') then
+                  if substr(p31,1,1) = 'O' or substr(p31,1,4) = 'Phas' then
                       banner_empl_status := 'L';
                 else
                       banner_empl_status := substr(p31,1,1);
