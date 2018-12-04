@@ -235,6 +235,7 @@ BEGIN
         sprtele_set := '';
         
         -- HOME (device change)
+ /* -- ignore (Dec 2018) 
         if p41 != 'No Update' and p18 = 'No Update' then
         
             
@@ -256,7 +257,7 @@ BEGIN
             end;
 
         end if;
-        
+*/        
         
         sprtele_set := '';
         

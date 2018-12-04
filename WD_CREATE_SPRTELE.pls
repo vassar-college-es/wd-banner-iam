@@ -144,7 +144,7 @@ BEGIN
       validated_phone := substr(p20,1,3)||substr(p20,4,4);
    end if;
    
-   if p41 = 'Mobile' then pr_phone_device := 'CP'; end if; 
+   --if p41 = 'Mobile' then pr_phone_device := 'CP'; end if; 
    begin
    insert into sprtele (sprtele_pidm, sprtele_seqno, sprtele_tele_code, sprtele_phone_area, sprtele_phone_number, sprtele_atyp_code, sprtele_addr_seqno, sprtele_primary_ind, sprtele_user_id, SPRTELE_ACTIVITY_DATE)
    values (p7, 1, pr_phone_device, p19, validated_phone, 'PR', 1, 'Y', 'WORKDAY', sysdate);
@@ -171,7 +171,7 @@ BEGIN
    
    begin
    insert into sprtele (sprtele_pidm, sprtele_seqno, sprtele_tele_code, sprtele_phone_area, sprtele_phone_number, sprtele_atyp_code, sprtele_addr_seqno, sprtele_primary_ind, sprtele_user_id, SPRTELE_ACTIVITY_DATE)
-   values (p7, 1, 'CP', p42, validated_phone, 'PR', 2, null, 'WORKDAY', sysdate);
+   values (p7, 1, 'CP', p42, validated_phone, 'PR', 1, null, 'WORKDAY', sysdate);
    exception when OTHERS then
       return_code := 401;
       return_status := SUBSTR(SQLERRM, 1, 100);
