@@ -160,6 +160,9 @@ BEGIN
        
             if p36 != 'No Update' then
                     banner_cost_center := p36;
+                    if p36 in ('CC6001', 'CC6002', 'CC6003') then
+                        banner_cost_center := 'CC6000';
+                    end if;
                     if p36 in ('CC8001', 'CC8002', 'CC8003', 'CC8004', 'CC8005', 'CC8006') then
                         banner_cost_center := 'CC8000';
                     end if;
@@ -167,7 +170,7 @@ BEGIN
                         banner_cost_center := 'CC3030';
                     end if;
                     if p36 in ('CC5011', 'CC5012', 'CC5013', 'CC5014', 'CC5015', 'CC5016', 'CC5017', 'CC5018', 'CC5019', 'CC5020') then
-                        banner_cost_center := 'CC5000';
+                        banner_cost_center := '50000';
                     end if;
                     pebempl_set := pebempl_set || 'pebempl_orgn_code_home = ''' || banner_cost_center || ''', pebempl_orgn_code_dist = ''' || banner_cost_center || ''', ';
             end if;

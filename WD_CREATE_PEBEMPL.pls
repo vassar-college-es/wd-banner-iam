@@ -132,6 +132,9 @@ BEGIN
    end if;
    
    banner_cost_center := p38;
+   if p38 in ('CC6001', 'CC6002', 'CC6003') then
+        banner_cost_center := 'CC6000';
+   end if;
    if p38 in ('CC8001', 'CC8002', 'CC8003', 'CC8004', 'CC8005', 'CC8006') then
          banner_cost_center := 'CC8000';
    end if;
@@ -139,7 +142,7 @@ BEGIN
          banner_cost_center := 'CC3030';
    end if;
    if p38 in ('CC5011', 'CC5012', 'CC5013', 'CC5014', 'CC5015', 'CC5016', 'CC5017', 'CC5018', 'CC5019', 'CC5020') then
-         banner_cost_center := 'CC5000';
+         banner_cost_center := '50000';
    end if;
 
     
