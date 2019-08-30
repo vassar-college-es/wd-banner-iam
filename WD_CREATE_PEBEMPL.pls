@@ -107,6 +107,8 @@ AS
    banner_lcat    PEBEMPL.PEBEMPL_LCAT_CODE%TYPE := '';
    banner_bcat   PEBEMPL.PEBEMPL_BCAT_CODE%TYPE := '';
    
+   banner_orig_start_date      PEBEMPL.PEBEMPL_FIRST_HIRE_DATE%TYPE := '';
+   
    banner_cost_center varchar2(6) := '';
    
 BEGIN
@@ -129,6 +131,12 @@ BEGIN
     
    if p46 like '%Contingent%' then 
        banner_ecls := 'ZA';
+   end if;
+   
+   if p29 is null or p29 = 'No Update' then
+        banner_orig_start_date := to_date(p28,'YYYY-MM-DD');
+   else
+        banner_orig_start_date := to_date(p29,'YYYY-MM-DD');
    end if;
    
    banner_cost_center := p38;
@@ -190,10 +198,10 @@ BEGIN
    banner_ecls, 
    banner_lcat, 
    banner_bcat,
-   to_date(p29,'YYYY-MM-DD'),
+   banner_orig_start_date,
    decode(p28,'',to_date(p29,'YYYY-MM-DD'),to_date(p28,'YYYY-MM-DD')),
    sysdate, 
-   to_date(p29,'YYYY-MM-DD'), 
+   banner_orig_start_date, 
    'N', -- swap?
    decode(p27,'','F',substr(p27,1,1)),
    'N', -- swap?
